@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-anomaly-detector-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: network-anomaly-detector
+  template:
+    metadata:
+      labels:
+        app: network-anomaly-detector
+    spec:
+      containers:
+      - name: network-anomaly-detector
+        image: network-anomaly-detector:latest
+        imagePullPolicy: IfNotPresent
+        command: ["python", "network_anomaly_forecasting/models/isolation_forest.py"]
